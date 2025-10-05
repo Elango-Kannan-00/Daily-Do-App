@@ -33,37 +33,42 @@ const App = () => {
 
   return (
     <div>
-      <div className="input">
-        <input
-          type="text"
-          value={todo}
-          placeholder="Add any task"
-          onChange={(e) => setTodo(e.target.value)}
-        />
-        <button className="add-button" onClick={addTask}>
-          Add
-        </button>
-      </div>
+      <h1 style={{fontSize: '3em'}}>Welcome to EK's Daily-Do App</h1>
+      <div className="todo-body">
+        <h1>Be Productive</h1>
+        <div className="input">
+          <input
+            type="text"
+            value={todo}
+            placeholder="Add any task"
+            onChange={(e) => setTodo(e.target.value)}
+          />
+          <button className="add-button" onClick={addTask}>
+            Add
+          </button>
+        </div>
 
-      <ul className="todo-items">
-        {todoList.map((task) => (
-          <li
-            key={task.id}
-            onClick={() => invertStatus(task.id)}
-            style={afterStrikeThrough(task.completed)}
-          >
-            <span>{task.text} </span>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteItem(task.id);
-              }}
+        <ul className="todo-items">
+          {todoList.map((task) => (
+            <li
+              key={task.id}
+              onClick={() => invertStatus(task.id)}
+              style={afterStrikeThrough(task.completed)}
             >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+              <span>{task.text} </span>
+              <button
+                className = "delete-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteItem(task.id);
+                }}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
