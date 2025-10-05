@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 
 const App = () => {
   const [todo, setTodo] = useState("");
@@ -6,14 +6,30 @@ const App = () => {
 
   const addTask = () => {
     if (todo.trim() === "") return;
-    else {
-      setTodoList([
-        ...todoList,
-        { id: Date.now(), text: todo, completed: false },
-      ]);
-      setTodo = "";
-    }
+    setTodoList([
+      ...todoList,
+      { id: Date.now(), text: todo, completed: false },
+    ]);
+    setTodo("");
   };
+
+  const invertStatus = (id) => {
+    setTodoList(
+      todoList.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
+  };
+
+  const deleteItem = (id) => {
+    setTodoList(todoList.filter((item) => item.id !== id));
+  };
+
+  const afterStrikeThrough = (completed) => ({
+    cursor: "pointer",
+    textDecoration: completed ? "line-through" : "none",
+    color: completed ? "grey" : "black",
+  });
 
   return (
     <div>
@@ -29,9 +45,23 @@ const App = () => {
         </button>
       </div>
 
-      <ul>
+      <ul className="todo-items">
         {todoList.map((task) => (
-          <li key={task.id}>{task.text}</li>
+          <li
+            key={task.id}
+            onClick={() => invertStatus(task.id)}
+            style={afterStrikeThrough(task.completed)}
+          >
+            <span>{task.text} </span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteItem(task.id);
+              }}
+            >
+              Delete
+            </button>
+          </li>
         ))}
       </ul>
     </div>
