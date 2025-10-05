@@ -32,8 +32,8 @@ const App = () => {
   });
 
   return (
-    <div>
-      <h1 style={{fontSize: '3em'}}>Welcome to EK's Daily-Do App</h1>
+    <div className="app-container">
+      <h1 className="main-heading">Welcome to EK's Daily-Do App</h1>
       <div className="todo-body">
         <h1>Be Productive</h1>
         <div className="input">
@@ -57,7 +57,7 @@ const App = () => {
             >
               <span>{task.text} </span>
               <button
-                className = "delete-button"
+                className="delete-button"
                 onClick={(e) => {
                   e.stopPropagation();
                   deleteItem(task.id);
